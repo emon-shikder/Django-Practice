@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>This is home page</h1>
+    <h1>{{ val | join:" " }}</h1>
+    <h1>{{ Date|date:"SHORT_DATE_FORMAT" }}</h1>
+    <h1>{{ value | add:"5" }}</h1>
+    <h1>{{ word | capfirst }}</h1>
+    <h1>{{ val1 | cut:"-" }}</h1>
+    <h1>{{ Name | dictsort:"name" }}</h1>
+    <h1>{{ val | first }}</h1>
+    <h1>{{ val | last }}</h1>
+    <h1>{{ val | length }}</h1>
+    <h1>{{ title | linenumbers }}</h1>
+    <h1>{{ title | lower }}</h1>
+    <h1>{{ title | upper }}</h1>
+    <h1>{{ title | title }}</h1>
+    <h1>{{ val | random }}</h1>
+    <h1>{{ val | slice:"2:" }}</h1>
+    <h1>{{ Date | time:"H:i" }}</h1>
+    <h1>{{ title | truncatechars:16 }}</h1>
+    <h1>{{ Date | timesince }}</h1>
+    <h1>{{ title | wordcount }}</h1>
+    <h1>{{ word | make_list }}</h1>
+    <h1>{{ new | addslashes }}</h1>
+    <h1>{{ new | center:"15" }}</h1>
+  </body>
+</html>
