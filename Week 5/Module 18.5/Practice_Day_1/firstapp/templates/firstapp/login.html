@@ -1,0 +1,23 @@
+{% extends "firstapp/base.html" %}
+{% load crispy_forms_tags %} 
+{% block body %}
+
+<form method="POST" style="width: 50%; margin: auto">
+  <h1>login Page</h1>
+  {% csrf_token %}
+  {% if form.non_field_errors %}
+  {% for er in form.non_field_errors %}
+  <p class="bg-danger text-white p-3">{{er}}</p>
+  {% endfor %}
+  {% endif %}
+  <!-- {{form | crispy }} -->
+  {% for fm in form%} {{fm.label_tag}} {{fm}} 
+  <p class="text-danger">{{fm.errors|striptags}} </p>
+  {% endfor %}
+  <br />
+  <button class="btn btn-primary" type="submit">Submit</button>
+  <br>
+  <small>If you don't have an account? <a href="{% url 'signup' %}">Signup</a></small>
+</form>
+    
+{% endblock %}
