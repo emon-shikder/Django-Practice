@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{%  load crispy_forms_tags %}
+{% block content %}
+<h1>{{ car.title }}</h1>
+<img src="{{ car.image.url }}" class="img-fluid mb-3" alt="{{ car.title }}">
+<p><strong>Brand:</strong> {{ car.brand.name }}</p>
+<p><strong>Price:</strong> ${{ car.price }}</p>
+<p><strong>Description:</strong> {{ car.description }}</p>
+<p><strong>Quantity Available:</strong> {{ car.quantity }}</p>
+
+{% if user.is_authenticated %}
+    {% if car.quantity > 0 %}
+        <a href="{% url 'buy_car' car.pk %}" class="btn btn-success">Buy Now</a>
+    {% else %}
+        <button class="btn btn-secondary" disabled>Out of Stock</button>
+    {% endif %}
+{% else %}
+    <p class="text-danger">Please <a href="{% url 'login' %}">login</a> to buy this car.</p>
+{% endif %}
+
+{% if comments %}
+<ul class="list-group mt-3">
+    <h3 class="mt-4">Previous Comments</h3>
+    {% for comment in comments %}
+
+    <div class="border border-primary">
+        <li class="list-group-item">
+            <strong>{{ comment.name }}</strong> - {{ comment.created_at|date:"Y-m-d H:i" }}
+            <p>{{ comment.text }}</p>
+        </li>
+    </div>
+    
+    {% endfor %}
+</ul>
+{% endif %}
+
+<h3 class="mt-4">Comments</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ comment_form|crispy }}
+    <button type="submit" class="btn btn-primary">Add Comment</button>
+</form>
+
+
+{% endblock %}

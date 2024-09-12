@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+    <div class="jumbotron text-center mb-5">
+        <div>
+            <a href="{% url 'car_list' %}" class="btn btn-success">Car List</a>
+        </div>
+        <h1>Welcome to Car Sales</h1>
+        <p class="lead">Find your dream car from a wide selection of brands and models!</p>
+        <img src="{% static 'header.png' %}" class="img-fluid mt-3" alt="Welcome Image">
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <h4>Filter by Brand</h4>
+            <form method="get" class="mb-4">
+                <select name="brand" class="form-select" onchange="this.form.submit()">
+                    <option value="">All Brands</option>
+                    {% for brand in brands %}
+                        <option value="{{ brand.name }}" {% if request.GET.brand == brand.name %}selected{% endif %}>
+                            {{ brand.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+
+        <div class="col-md-9">
+            <h4>Available Cars</h4>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% for car in cars %}
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="{{ car.image.url }}" class="card-img-top" alt="{{ car.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ car.title }}</h5>
+                            <p class="card-text">Price: ${{ car.price }}</p>
+                            <a href="{% url 'car_detail' car.pk %}" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-muted">No cars available for the selected brand.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
